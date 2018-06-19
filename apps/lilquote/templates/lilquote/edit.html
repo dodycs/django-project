@@ -1,0 +1,18 @@
+{% extends 'bill_tracker/base.html' %}
+{% block body %}
+<div class="row my-3">
+   <div class="col-7">
+      <form action="{% url 'lilquote:edit_quote' quote_id=quote.id %}" method="POST">
+         <div class="form-group">
+            {% csrf_token %}
+            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ quote.content }}</textarea>
+         </div>
+         <div class="d-flex justify-content-end">
+
+            <button type="submit" class="btn btn-success">Say It!</button>
+         </div>
+      </form>
+      {% include 'bill_tracker/errors.html' %}
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<h1>Tasks for: {{ project.title }}</h1>
+<form action="{% url 'project_manager:create_task' project_id=project_id %}" method="POST" class="mb-3">
+   <div class="formgroup row">
+      <div class="col-10">
+         {% csrf_token %}
+         <input type="text" name="description" class="form-control">
+      </div>
+      <div class="col-auto">
+         <button class="btn btn-primary" type="submit">Create</button>
+         <a class="btn btn-secondary" href="">Cancel</a>
+      </div>
+   </div>
+</form>
+{% include 'bill_tracker/errors.html' %}
+<hr>
+<div class="row">
+   <div class="col-10">
+      <h4>Description</h4>
+   </div>
+   <div class="col-auto"></div>
+</div>
+<hr>
+{% for task in tasks %}
+<div class="row mb-1">
+   <div class="col-10">{{ task.description }}</div>
+   <div class="col-auto">
+      <a href="{% url 'project_manager:edit_task' project_id=task.project.id task_id=task.id %}" class="btn btn-warning btn-sm">Edit</a>
+      <a href="{% url 'project_manager:delete_task' project_id=task.project.id task_id=task.id %}" class="btn btn-danger btn-sm">Delete</a>
+   </div>
+</div>
+{% endfor %} {% endblock body %}

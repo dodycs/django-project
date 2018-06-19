@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+         <a class="navbar-brand" href="{% url 'login_registration:profile' %}">a Django Project!</a>
+         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if 'user_id' in request.session %}
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Project Manager
+               </a>
+               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'project_manager:index' %}">Projects</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Add Project</a>
+               </div>
+            </li>
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Bill Tracker
+               </a>
+               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'bill_tracker:index' %}">Bills</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Create Bill</a>
+               </div>
+            </li>
+            <li class="nav-item dropdown">
+               <a class="nav-link" href="{% url 'tvshow:tvshows' %}" id="navbarDropdown">
+                  TVShow
+               </a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+               <a class="nav-link" href="{% url 'lilquote:quotes' %}" id="navbarDropdown">
+                  Quotes
+               </a>
+            </li>
+         </ul>
+         <ul class="nav navbar-nav my-2 my-lg-0">
+            <li class="nav-item dropdown">
+               {% if 'name' in request.session %}
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">{{ request.session.name }}</a>
+               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'login_registration:profile' %}">Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'login_registration:logout' %}">Logout</a>
+               </div>
+               {% else %}
+               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">Login</a>
+               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'login_registration:login' %}">Login</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'login_registration:register' %}">Register</a>
+               </div>
+               {% endif %}
+            </li>
+         </ul>
+      </div>
+   </div>
+</nav>

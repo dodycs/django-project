@@ -1,0 +1,33 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<h1>Projects</h1>
+<form action="{% url 'project_manager:create_project' %}" method="POST" class="mb-3">
+   <div class="formgroup row">
+      <div class="col-10">
+         {% csrf_token %}
+         <input type="text" name="title" class="form-control">
+      </div>
+      <div class="col-auto">
+         <button class="btn btn-success" type="submit">Create</button>
+      </div>
+   </div>
+</form>
+{% include 'bill_tracker/errors.html' %}
+<hr>
+<div class="row">
+   <div class="col-1"></div>
+   <div class="col-6"><h4>Project Title</h4></div>
+   <div class="col-2"><h4>Day Created</h4></div>
+   <div class="col-auto"></div>
+</div>
+<hr>
+{% for project in projects %}
+<div class="row align-items-center mb-1">
+   <div class="col-1"><a class="btn btn-primary btn-sm" href="{% url 'project_manager:tasks' project_id=project.id %}">Tasks</a></div>
+   <div class="col-6">{{ project.title }}</div>
+   <div class="col-3">{{ project.created_at }}</div>
+   <div class="col-auto">
+      <a class="btn btn-warning btn-sm" href="{% url 'project_manager:edit_project' project_id=project.id %}">Edit</a>
+      <a class="btn btn-danger btn-sm" href="{% url 'project_manager:delete_project' project_id=project.id %}">Delete</a>
+   </div>
+</div>
+{% endfor %} {% endblock body %}

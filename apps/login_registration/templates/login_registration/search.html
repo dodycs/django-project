@@ -1,0 +1,6 @@
+<form action="{% url 'login_registration:search' %}" method="POST">
+   <div class="form-group">
+      {% csrf_token %}
+      <input type="text" class="form-control rounded-0" id="formGroupExampleInput" placeholder="Search User" name="keyword">
+   </div>
+</form>

@@ -1,0 +1,56 @@
+ {% extends 'bill_tracker/base.html' %} {% block body %}
+<div class="row justify-content-md-center">
+   {% if 'name' in request.session %}
+   <div class="col-12 d-flex justify-content-bettwen">
+      <h1 class="text-right">{{ request.session.name }} Profile</h1>
+   </div>
+   {% endif %}
+</div>
+<div class="row">
+   <div class="col-4">
+      <h2 class="text-center">Your Quotes:</h2>
+      <hr> {% for quote in quotes %}
+      <div class="row">
+         <div class="col-12">
+            <div class="card">
+               <div class="card-body">
+                  {% if quote.user.id == request.session.user_id %}
+                  <a href="{% url 'lilquote:delete_quote' quote_id=quote.id %}">Delete</a>
+                  {% endif %}
+                  <h5 class="card-title">
+                     <span class="border-left-4">{{ quote.content }}</span>
+                  </h5>
+                  <p class="card-text"></p>
+                  <div class="d-flex">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                     <div class="p-2">{{ quote.user.name }}</div>
+                     <div class="p-2">{{ quote.updated_at }}</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+   <div class="col-8">
+      <h2 class="text-center">This to show something else</h2>
+      <hr>
+      <div class="row">
+         {% for tvshow in tvshows %}
+         <div class="col-sm-3 mb-3">
+            <div class="card">
+               <img src="{{ tvshow.image }}" alt="TVShow Image" class="card-img-top">
+               <div class="card-body">
+                  <p class="card-text text-center">{{ tvshow.name }}</p>
+                  <p class="card-text text-center">
+                     <a href="{% url 'tvshow:unlike' user_id=request.session.user_id api_id=tvshow.api_id %}">Unlike</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+</div>
+{% endblock body %}

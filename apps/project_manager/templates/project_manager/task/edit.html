@@ -1,0 +1,16 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<h1>{{task.project.title}}</h1>
+<form action="{% url 'project_manager:edit_task' project_id=task.project.id task_id=task.id %}" method="POST" class="mb-3">
+   <div class="formgroup row">
+      <div class="col-7">
+         {% csrf_token %}
+         <input type="text" name="description" class="form-control" value="{{ task.description }}">
+      </div>
+      <div class="col-auto">
+         <button class="btn btn-primary" type="submit">Update</button>
+         <a class="btn btn-secondary" href="{% url 'project_manager:tasks' project_id=task.project.id %}">Cancel</a>
+      </div>
+   </div>
+</form>
+{% include 'bill_tracker/errors.html' %}
+{% endblock body %}

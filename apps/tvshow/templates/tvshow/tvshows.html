@@ -1,0 +1,32 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<form action="{% url 'tvshow:post_search' %}" method="POST">
+   <div class="form-group">
+      {% csrf_token %}
+      <input type="text" class="form-control rounded-0" id="formGroupExampleInput" placeholder="Search a TVShows" name="keyword">
+   </div>
+</form>
+<h1 class="text-center mt-3">TV Show</h1>
+<div class="row mt-3">
+   {% for tvshow in tvshows %}
+   <div class="col-sm-3 mb-3">
+      <div class="card">
+         <img src="{{ tvshow.image }}" alt="TVShow Image" class="card-img-top">
+         <div class="card-body">
+            <p class="card-text text-center">{{ tvshow.name }}</p>
+            {% if 'user_id' in request.session %} 
+               {% if tvshow.api_id in user_likes %}
+               <p class="card-text text-center">
+                  <a href="{% url 'tvshow:unlike' user_id=request.session.user_id api_id=tvshow.api_id %}">Unlike</a>
+               </p>
+               {% else %}
+               <p class="card-text text-center">
+                  <a href="{% url 'tvshow:like' user_id=request.session.user_id api_id=tvshow.api_id %}">Like</a>
+               </p>
+               {% endif %} 
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+{% endblock %}

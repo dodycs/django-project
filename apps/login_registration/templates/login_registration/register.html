@@ -1,0 +1,40 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<div class="row justify-content-md-center">
+	<div class="col-5">
+		<h1 class="text-center">Signup</h1>
+		<form action="{% url 'login_registration:register' %}" method="POST">
+			<div class="form-group">
+				{% csrf_token %}
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+			</div>
+			<div class="form-group">
+				<label for="email">Email address</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+			</div>
+			<div class="form-group">
+				<label for="confirm_password">ConfirmPassword</label>
+				<input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" name="confirm">
+			</div>
+			<div class="form-check mb-2">
+				<input type="checkbox" class="form-check-input" id="remind_me">
+				<label class="form-check-label" for="remind_me">Remind me</label>
+			</div>
+			<div class="form-group d-flex justify-content-between align-items-center">
+				<div>
+					<button type="submit" class="btn btn-success">Signup</button>
+				</div>
+				<div>
+					Have a user?
+					<a href="{% url 'login_registration:login' %}">Login here</a>
+				</div>
+			</div>
+		</form>
+		{% include 'bill_tracker/errors.html' %}
+	</div>
+</div>
+{% endblock body %}

@@ -1,0 +1,39 @@
+{% extends 'bill_tracker/base.html' %} {% block body %}
+<h1>Bill Items</h1>
+
+<form action="{% url 'bill_tracker:create_bill_item' %}" method="POST">
+   <div class="form-group row">
+      <div class="col-7">
+         {% csrf_token %}
+         <input type="text" name="description" id="description" class="form-control" placeholder="Description">
+      </div>
+      <div class="col-3">
+         <input type="text" name="amount" id="amount" class="form-control" placeholder="Amount">
+      </div>
+      <div class="col-auto">
+         <button class="btn btn-success">Add Bill</button>
+      </div>
+   </div>
+</form>
+{% include 'bill_tracker/errors.html' %}
+<hr>
+<div class="row">
+   <div class="col-7">
+      <h4>Description</h4>
+   </div>
+   <div class="col-3">
+      <h4>Amount</h4>
+   </div>
+</div>
+<hr> {% for bill_item in bill_items %}
+<div class="row mb-1">
+   <div class="col-7">{{ bill_item.description }}</div>
+   <div class="col-3">{{ bill_item.amount }}</div>
+   <div class="col-auto">
+      <a href="{% url 'bill_tracker:edit_bill_item' bill_item_id=bill_item.id %}" class="btn btn-warning btn-sm">Edit</a>
+      <a href="{% url 'bill_tracker:delete_bill_item' bill_item_id=bill_item.id %}" class="btn btn-danger btn-sm">Delete</a>
+   </div>
+</div>
+
+
+{% endfor %} {% endblock %}
